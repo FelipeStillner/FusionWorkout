@@ -41,11 +41,30 @@
         <div class="hero-body">
             <div class="container has-text-centered">
                 <h1 class="title">
-                    Welcome, Anthony!
+                    My Profile
                 </h1>
+                <div class="columns is-mobile is-multiline is-centered">
+                    <div class="column is-narrow">
+                        <p class="bd-notification is-primary">
+                            <code class="html">Name</code><br />
+                            {{name}}
+                        </p>
+                    </div>
+                    <div class="column is-narrow">
+                        <p class="bd-notification is-primary">
+                            <code class="html">email</code><br />
+                            {{email}}
+                        </p>
+                    </div>
+                </div>
+                <a class="button is-info is-large" href="{{ url_for('plan') }}">
+                    Plan
+                </a>
             </div>
+
         </div>
     </section>
+
 </body>
 
 </html>

@@ -1,44 +1,41 @@
 from flask import Flask
 from flask import render_template, redirect, url_for, request
 from Project.DBManager import authenticate_user, create_user
-from Project.User import User
+from Project.Client import Client
+from Project.Application import Application
 
-app = Flask(__name__)
+flask_app = Flask(__name__)
+
+app = Application()
 
 
-@app.route("/")
+@flask_app.route("/")
 def index():
     return render_template("index.html")
 
 
-@app.route("/profile")
-def profile():
-    u = User("client@gmail.com")
-    print(u.dbg())
-    return render_template("profile.html")
-
-
-@app.route("/login")
+@flask_app.route("/login")
 def login():
     return render_template("login.html")
 
 
-@app.route("/login", methods=["POST"])
+@flask_app.route("/login", methods=["POST"])
 def login_post():
     email = request.form.get("email")
     password = request.form.get("password")
 
-    if (authenticate_user(email, password)):
-        return redirect(url_for("logout"))
+    if authenticate_user(email, password):
+        app.user = Client(email)
+        return redirect(url_for("profile"))
     return redirect(url_for("login"))
 
 
-@app.route("/signup")
+@flask_app.route("/signup")
 def signup():
     return render_template("signup.html")
 
 
-@app.route("/signup", methods=["POST"])
+@flask_app.route("/signup", methods=["POST"])
 def signup_post():
     email = request.form.get("email")
     name = request.form.get("name")
@@ -49,6 +46,20 @@ def signup_post():
     return redirect(url_for("signup"))
 
 
-@app.route("/logout")
+@flask_app.route("/logout")
 def logout():
-    return "Logout"
+    app.user = None
+    return redirect(url_for("index"))
+
+
+@flask_app.route("/profile")
+def profile():
+    if app.user == None:
+        return redirect(url_for("login"))
+    return render_template("profile.html", name = app.user.name, email = app.user.email)
+
+@flask_app.route("/plan")
+def plan():
+    if app.user == None:
+        return redirect(url_for("login"))
+    return render_template("plan.html", name = app.user.plan.name)
