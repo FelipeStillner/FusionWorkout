@@ -58,8 +58,18 @@ def profile():
         return redirect(url_for("login"))
     return render_template("profile.html", name = app.user.name, email = app.user.email)
 
-@flask_app.route("/plan")
-def plan():
+@flask_app.route("/weeklyplan")
+def weeklyplan():
     if app.user == None:
         return redirect(url_for("login"))
-    return render_template("plan.html", name = app.user.plan.name)
+    return render_template("weeklyplan.html", name = app.user.plan.name)
+
+@flask_app.route("/dailyplan")
+def dailyplan():
+    if app.user == None:
+        return redirect(url_for("login"))
+    info = list()
+    for i in range(7):
+        info.append(app.user.plan.dailies[i].dbg())
+    return render_template("dailyplan.html", name = app.user.plan.name, day = 1, info = info)
+

@@ -43,6 +43,11 @@
                 <h1 class="title">
                     My Plan : {{ name }}
                 </h1>
+                <ol>
+                    {%for i in info%}
+                    <li>{{i}}</li>
+                    {%endfor%}
+                </ol>
             </div>
         </div>
     </section>

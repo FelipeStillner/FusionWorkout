@@ -41,15 +41,48 @@
         <div class="hero-body">
             <div class="container has-text-centered">
                 <h1 class="title">
-                    Welcome {{name}}
+                    My Plan : {{ name }}
                 </h1>
-                <a class="button is-info is-large" href="{{ url_for('weeklyplan') }}">
-                    My Weekly Plan
-                </a>
+                <div class="columns">
+                    <div class="column">
+                        <a class="button is-info is-large" href="{{ url_for('dailyplan') }}">
+                            Sunday
+                        </a>
+                    </div>
+                    <div class="column">
+                        <a class="button is-info is-large" href="{{ url_for('weeklyplan') }}">
+                            Monday
+                        </a>
+                    </div>
+                    <div class="column">
+                        <a class="button is-info is-large" href="{{ url_for('weeklyplan') }}">
+                            Tuesday
+                        </a>
+                    </div>
+                    <div class="column">
+                        <a class="button is-info is-large" href="{{ url_for('weeklyplan') }}">
+                            Wednesday
+                        </a>
+                    </div>
+                    <div class="column">
+                        <a class="button is-info is-large" href="{{ url_for('weeklyplan') }}">
+                            Thursday
+                        </a>
+                    </div>
+                    <div class="column">
+                        <a class="button is-info is-large" href="{{ url_for('weeklyplan') }}">
+                            Friday
+                        </a>
+                    </div>
+                    <div class="column">
+                        <a class="button is-info is-large" href="{{ url_for('weeklyplan') }}">
+                            Saturday
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-
 </body>
 
 </html>

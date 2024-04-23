@@ -49,6 +49,32 @@ cur.execute(
     """
 )
 
+cur.execute(
+    """
+    DROP TABLE IF EXISTS dailyplan;
+    CREATE TABLE dailyplan (
+        weeklyplan_id INT,
+        day INT,
+        name VARCHAR(255)
+    );
+    INSERT INTO dailyplan (weeklyplan_id, day, name) VALUES 
+        (0, 1, '1 F'),
+        (0, 2, '2 F'),
+        (0, 3, '3 F'),
+        (0, 4, '4 F'),
+        (0, 5, '5 F'),
+        (0, 6, '6 F'),
+        (0, 7, '7 F'),
+        (1, 1, '1 M'),
+        (1, 2, '2 M'),
+        (1, 3, '3 M'),
+        (1, 4, '4 M'),
+        (1, 5, '5 M'),
+        (1, 6, '6 M'),
+        (1, 7, '7 M');
+    """
+)
+
 conn.commit()
 
 cur.close()

@@ -42,7 +42,8 @@ def get_user(email):
     cur.close()
     return user
 
-def get_plan(email):
+
+def get_weeklyplan(email):
     cur = conn.cursor()
     cur.execute(f"""SELECT weeklyplan_id FROM clients WHERE email = '{email}'""")
     for i in cur.fetchall():
@@ -56,3 +57,13 @@ def get_plan(email):
     conn.commit()
     cur.close()
     return planinfo
+
+
+def get_dailyplan(weeklyid, day):
+    cur = conn.cursor()
+    cur.execute(f"""SELECT * FROM dailyplan WHERE weeklyplan_id = '{weeklyid}' AND day = {day}""")
+    for i in cur.fetchall():
+        dailyinfo = i
+    conn.commit()
+    cur.close()
+    return dailyinfo
