@@ -13,6 +13,7 @@ def authenticate_user(email, password):
         right = i[0]
     conn.commit()
     cur.close()
+    print(right)
     if password == right:
         return True
     return False
@@ -61,9 +62,21 @@ def get_weeklyplan(email):
 
 def get_dailyplan(weeklyid, day):
     cur = conn.cursor()
-    cur.execute(f"""SELECT * FROM dailyplan WHERE weeklyplan_id = '{weeklyid}' AND day = {day}""")
+    cur.execute(f"""SELECT * FROM dailyplan WHERE weeklyplan_id = {weeklyid} AND day = {day}""")
     for i in cur.fetchall():
         dailyinfo = i
     conn.commit()
     cur.close()
     return dailyinfo
+
+def get_circuits(weeklyid, day):
+    circuitsinfo = list()
+    cur = conn.cursor()
+    cur.execute(f"""SELECT number, name FROM circuit WHERE weekly_id = {weeklyid} and day = {day}""")
+    print("a")
+    for i in cur.fetchall():
+        circuitsinfo.append(i)
+        pass
+    conn.commit()
+    cur.close()
+    return circuitsinfo

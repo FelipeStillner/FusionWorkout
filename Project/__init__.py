@@ -40,7 +40,6 @@ def signup_post():
     email = request.form.get("email")
     name = request.form.get("name")
     password = request.form.get("password")
-
     if create_user(email, name, password, "C"):
         return redirect(url_for("login"))
     return redirect(url_for("signup"))
@@ -68,8 +67,10 @@ def weeklyplan():
 def dailyplan():
     if app.user == None:
         return redirect(url_for("login"))
+    daily = app.user.plan.dailies[0]
     info = list()
-    for i in range(7):
-        info.append(app.user.plan.dailies[i].dbg())
-    return render_template("dailyplan.html", name = app.user.plan.name, day = 1, info = info)
+    for circuit in daily.circuits:
+        info.append(circuit.name)
+    return render_template("dailyplan.html", name = app.user.plan.name, day = "0", info = info)
+
 

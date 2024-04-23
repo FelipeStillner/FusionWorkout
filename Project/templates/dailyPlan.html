@@ -43,11 +43,17 @@
                 <h1 class="title">
                     My Plan : {{ name }}
                 </h1>
-                <ol>
-                    {%for i in info%}
-                    <li>{{i}}</li>
-                    {%endfor%}
-                </ol>
+                <h1 class="title">
+                    Day : {{ day }}
+                </h1>
+                <ol> 
+                    <!-- For loop logic of jinja template -->
+                    {%for i in info%} 
+                      
+                        <li class="title">{{i}}</li> 
+                    {%endfor%} 
+                      
+                    </ol> 
             </div>
         </div>
     </section>

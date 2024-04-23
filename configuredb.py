@@ -75,6 +75,24 @@ cur.execute(
     """
 )
 
+cur.execute(
+    """
+    DROP TABLE IF EXISTS circuit;
+    CREATE TABLE circuit (
+        weekly_id INT,
+        day INT,
+        number INT,
+        name VARCHAR(255)
+    );
+    INSERT INTO circuit (weekly_id, day, number, name) VALUES 
+        (0, 1, 0, 'barra'),
+        (0, 1, 1, 'flexao'),
+        (0, 1, 2, 'boxe'),
+        (0, 2, 0, 'karate'),
+        (0, 2, 1, 'natacao');
+    """
+)
+
 conn.commit()
 
 cur.close()
