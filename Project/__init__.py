@@ -73,4 +73,37 @@ def dailyplan():
         info.append(circuit.name)
     return render_template("dailyplan.html", name = app.user.plan.name, day = "0", info = info)
 
+@flask_app.route("/schedule")
+def schedule():
+    return render_template("schedule.html")
+
+@flask_app.route("/diet")
+def diet():
+    return render_template("diet.html")
+
+@flask_app.route("/profilepersonal")
+def profilepersonal():
+    return render_template("profilepersonal.html")
+
+@flask_app.route("/profilemanager")
+def profilemanager():
+    return render_template("profilemanager.html")
+
+@flask_app.route("/changediet")
+def changediet():
+    return render_template("changediet.html")
+
+@flask_app.route("/changeweeklyplan")
+def changeweeklyplan():
+    return render_template("changeweeklyplan.html")
+
+@flask_app.route("/deleteregister")
+def deleteregister():
+    return render_template("deleteregister.html")
+
+@flask_app.route("/manageappointment")
+def manageappointment():
+    return render_template("manageappointment.html")
+
+
 

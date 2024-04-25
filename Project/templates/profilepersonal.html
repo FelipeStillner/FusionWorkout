@@ -43,22 +43,13 @@
                 <h1 class="title">
                     Welcome {{name}}
                 </h1>
-                <a class="button is-info is-large" href="{{ url_for('weeklyplan') }}">
-                    My Weekly Plan
+                <a class="button is-info is-large" href="{{ url_for('changeweeklyplan') }}">
+                    Change Weekly Plan
                 </a>
-                <a class="button is-info is-large" href="{{ url_for('schedule') }}">
-                    Schedule Appointment
-                </a>
-                <a class="button is-info is-large" href="{{ url_for('diet') }}">
-                    My Diet
+                <a class="button is-info is-large" href="{{ url_for('changediet') }}">
+                    Change diet
                 </a>
             </div>
-            <a class="button is-info is-large" href="{{ url_for('profilepersonal') }}">
-                profilepersonal
-            </a>
-            <a class="button is-info is-large" href="{{ url_for('profilemanager') }}">
-                profilemanager
-            </a>
         </div>
         
     </section>

@@ -73,10 +73,8 @@ def get_circuits(weeklyid, day):
     circuitsinfo = list()
     cur = conn.cursor()
     cur.execute(f"""SELECT number, name FROM circuit WHERE weekly_id = {weeklyid} and day = {day}""")
-    print("a")
     for i in cur.fetchall():
         circuitsinfo.append(i)
-        pass
     conn.commit()
     cur.close()
     return circuitsinfo

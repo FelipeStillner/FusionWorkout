@@ -40,29 +40,37 @@
 
         <div class="hero-body">
             <div class="container has-text-centered">
-                <h1 class="title">
-                    Welcome {{name}}
-                </h1>
-                <a class="button is-info is-large" href="{{ url_for('weeklyplan') }}">
-                    My Weekly Plan
-                </a>
-                <a class="button is-info is-large" href="{{ url_for('schedule') }}">
-                    Schedule Appointment
-                </a>
-                <a class="button is-info is-large" href="{{ url_for('diet') }}">
-                    My Diet
-                </a>
-            </div>
-            <a class="button is-info is-large" href="{{ url_for('profilepersonal') }}">
-                profilepersonal
-            </a>
-            <a class="button is-info is-large" href="{{ url_for('profilemanager') }}">
-                profilemanager
-            </a>
-        </div>
-        
-    </section>
+                <div class="column is-4 is-offset-4">
+                    <h3 class="title">Schedule an Appointment</h3>
+                    <div class="box">
+                        <form method="POST" action="/schedule">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input is-large" type="number" name="personal" placeholder="Personal Code"
+                                        autofocus="">
+                                </div>
+                            </div>
 
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input is-large" type="date" name="date"
+                                        placeholder="Date">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input is-large" type="time" name="time"
+                                        placeholder="Time">
+                                </div>
+                            </div>
+                            <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 
 </html>
