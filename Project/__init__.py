@@ -105,5 +105,9 @@ def deleteregister():
 def manageappointment():
     return render_template("manageappointment.html")
 
+@flask_app.route("/times")
+def times():
+    return render_template("times.html")
+
 
 

@@ -49,9 +49,39 @@
                 <a class="button is-info is-large" href="{{ url_for('changediet') }}">
                     Change diet
                 </a>
+                <a class="button is-info is-large" href="{{ url_for('times') }}">
+                    Appointments
+                </a>
+                <br><br>
+                <h1 class="title">
+                    Get User Information about WeeklyPlan
+                </h1>
+                
+                <form method="POST" action="/weeklyplan">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input is-large" type="number" name="usrcode" placeholder="User Code"
+                                autofocus="">
+                        </div>
+                    </div>
+                    <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+                </form>
+                <br><br>
+                <h1 class="title">
+                    Get User Information about Diet
+                </h1>
+                <form method="POST" action="/schedule">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input is-large" type="number" name="usrcode" placeholder="User Code"
+                                autofocus="">
+                        </div>
+                    </div>
+                    <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+                </form>
             </div>
         </div>
-        
+
     </section>
 
 </body>
