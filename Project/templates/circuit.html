@@ -41,49 +41,35 @@
         <div class="hero-body">
             <div class="container has-text-centered">
                 <h1 class="title">
-                    Welcome {{name}}
+                    Exercise Plan 
                 </h1>
-                <a class="button is-info is-large" href="{{ url_for('changeweeklyplan') }}">
-                    Change Weekly Plan
-                </a>
-                <a class="button is-info is-large" href="{{ url_for('changediet') }}">
-                    Change diet
-                </a>
-                <a class="button is-info is-large" href="{{ url_for('times') }}">
-                    Appointments
-                </a>
-                <br><br>
                 <h1 class="title">
-                    Get User Information about WeeklyPlan
+                    Day : 0
                 </h1>
-                
-                <form method="POST" action="/weeklyplan">
-                    <div class="field">
-                        <div class="control">
-                            <input class="input is-large" type="number" name="usrcode" placeholder="User Code"
-                                autofocus="">
-                        </div>
-                    </div>
-                    <button class="button is-block is-info is-large is-fullwidth">Submit</button>
-                </form>
-                <br><br>
+                <br>
                 <h1 class="title">
-                    Get User Information about Diet
+                    Circuit
                 </h1>
-                <form method="POST" action="/schedule">
-                    <div class="field">
-                        <div class="control">
-                            <input class="input is-large" type="number" name="usrcode" placeholder="User Code"
-                                autofocus="">
-                        </div>
-                    </div>
-                    <button class="button is-block is-info is-large is-fullwidth">Submit</button>
-                </form>
+                <table class="table">
+                    <tr>
+                        <th>Aliment</th>
+                        <th>Quantity (g)</th>
+                        <th>Calories (kcal)</th>
+                    </tr>
+                    <tr>
+                        <td>Arroz</td>
+                        <td>1000</td>
+                        <td>???????</td>
+                    </tr>
+                    <tr>
+                        <td>Carne Vermelha</td>
+                        <td>200</td>
+                        <td>???????</td>
+                    </tr>
+                </table>
             </div>
         </div>
-
     </section>
-
 </body>
 
 </html>

@@ -41,19 +41,45 @@
         <div class="hero-body">
             <div class="container has-text-centered">
                 <h1 class="title">
-                    WeeklyPlan : {{ name }}
+                    Exercise Plan
                 </h1>
-                <h1 class="title">
-                    Day : {{ day }}
-                </h1>
-                <ol> 
-                    <!-- For loop logic of jinja template -->
-                    {%for i in info%} 
-                    
-                        <li class="title">{{i}}</li> 
-                    {%endfor%} 
-                      
-                    </ol> 
+                <div class="columns">
+                    <div class="column">
+                        <a class="button is-info is-large" href="{{ url_for('circuit') }}">
+                            Sunday
+                        </a>
+                    </div>
+                    <div class="column">
+                        <a class="button is-info is-large" href="{{ url_for('circuit') }}">
+                            Monday
+                        </a>
+                    </div>
+                    <div class="column">
+                        <a class="button is-info is-large" href="{{ url_for('circuit') }}">
+                            Tuesday
+                        </a>
+                    </div>
+                    <div class="column">
+                        <a class="button is-info is-large" href="{{ url_for('circuit') }}">
+                            Wednesday
+                        </a>
+                    </div>
+                    <div class="column">
+                        <a class="button is-info is-large" href="{{ url_for('circuit') }}">
+                            Thursday
+                        </a>
+                    </div>
+                    <div class="column">
+                        <a class="button is-info is-large" href="{{ url_for('circuit') }}">
+                            Friday
+                        </a>
+                    </div>
+                    <div class="column">
+                        <a class="button is-info is-large" href="{{ url_for('circuit') }}">
+                            Saturday
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
