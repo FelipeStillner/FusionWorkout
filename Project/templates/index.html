@@ -20,17 +20,11 @@
                             <a href="{{ url_for('index') }}" class="navbar-item">
                                 Home
                             </a>
-                            <a href="{{ url_for('profile') }}" class="navbar-item">
-                                Profile
-                            </a>
                             <a href="{{ url_for('login') }}" class="navbar-item">
                                 Login
                             </a>
                             <a href="{{ url_for('signup') }}" class="navbar-item">
                                 Sign Up
-                            </a>
-                            <a href="{{ url_for('logout') }}" class="navbar-item">
-                                Logout
                             </a>
                         </div>
                     </div>
@@ -43,6 +37,15 @@
                 <h1 class="title">
                     Fusion Workout
                 </h1>
+                <a class="button is-info is-large" href="{{ url_for('client') }}">
+                    client
+                </a>
+                <a class="button is-info is-large" href="{{ url_for('personal') }}">
+                    personal
+                </a>
+                <a class="button is-info is-large" href="{{ url_for('manager') }}">
+                    manager
+                </a>
             </div>
         </div>
     </section>

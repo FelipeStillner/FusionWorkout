@@ -64,6 +64,11 @@ def diet():
     return render_template("diet.html")
 
 
+@app.route("/diet", methods=["POST"])
+def diet_post():
+    return redirect(url_for("diet"))
+
+
 @app.route("/changediet")
 def changediet():
     return render_template("changediet.html")
@@ -82,6 +87,11 @@ def circuit():
 @app.route("/exerciseplan")
 def exerciseplan():
     return render_template("exerciseplan.html")
+
+
+@app.route("/exerciseplan", methods=["POST"])
+def exerciseplan_post():
+    return redirect(url_for("exerciseplan"))
 
 
 @app.route("/changeexerciseplan")
@@ -107,3 +117,8 @@ def times():
 @app.route("/deleteregister")
 def deleteregister():
     return render_template("deleteregister.html")
+
+
+@app.route("/deleteregister", methods=["POST"])
+def deleteregister_post():
+    return redirect(url_for("deleteregister"))
