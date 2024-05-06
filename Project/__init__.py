@@ -69,6 +69,11 @@ def changediet():
     return render_template("changediet.html")
 
 
+@app.route("/workout")
+def workout():
+    return render_template("workout.html")
+
+
 @app.route("/circuit")
 def circuit():
     return render_template("circuit.html")

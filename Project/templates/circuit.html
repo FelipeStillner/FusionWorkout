@@ -41,31 +41,50 @@
         <div class="hero-body">
             <div class="container has-text-centered">
                 <h1 class="title">
-                    Exercise Plan 
+                    Exercise Plan : Felipe
                 </h1>
                 <h1 class="title">
-                    Day : 0
-                </h1>
-                <br>
-                <h1 class="title">
-                    Circuit
+                    Day : Monday
                 </h1>
                 <table class="table">
-                    <tr>
-                        <th>Aliment</th>
-                        <th>Quantity (g)</th>
-                        <th>Calories (kcal)</th>
-                    </tr>
-                    <tr>
-                        <td>Arroz</td>
-                        <td>1000</td>
-                        <td>???????</td>
-                    </tr>
-                    <tr>
-                        <td>Carne Vermelha</td>
-                        <td>200</td>
-                        <td>???????</td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Repetitions</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>1</th>
+                            <td>
+                                <a class="button is-info" href="{{ url_for('workout') }}">
+                                    Aerobical
+                                </a>
+                            </td>
+                            <td>
+                                3
+                            </td>
+                            <td>
+                                15:00
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>2</th>
+                            <td>
+                                <a class="button is-info" href="{{ url_for('workout') }}">
+                                    Leg
+                                </a>
+                            </td>
+                            <td>
+                                5
+                            </td>
+                            <td>
+                                20:00
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>

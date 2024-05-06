@@ -41,53 +41,43 @@
         <div class="hero-body">
             <div class="container has-text-centered">
                 <h1 class="title">
-                    Welcome {{name}}
+                    Exercise Plan : Felipe
                 </h1>
-                <a class="button is-info is-large" href="{{ url_for('manageappointment') }}">
-                    Manage Appointments
-                </a>
-                <a class="button is-info is-large" href="{{ url_for('deleteregister') }}">
-                    Delete Register
-                </a>
-                <a class="button is-info is-large" href="{{ url_for('changeexerciseplan') }}">
-                    Change Exercise Plan
-                </a>
-                <a class="button is-info is-large" href="{{ url_for('changediet') }}">
-                    Change diet
-                </a>
-
-                <br><br>
                 <h1 class="title">
-                    Get User Information about Exercise Plan
+                    Day : Monday
                 </h1>
-
-                <form method="POST" action="/weeklyplan">
-                    <div class="field">
-                        <div class="control">
-                            <input class="input is-large" type="number" name="usrcode" placeholder="User Code"
-                                autofocus="">
-                        </div>
-                    </div>
-                    <button class="button is-block is-info is-large is-fullwidth">Submit</button>
-                </form>
-                <br><br>
                 <h1 class="title">
-                    Get User Information about Diet
+                    Circuit : Aerobical
                 </h1>
-                <form method="POST" action="/schedule">
-                    <div class="field">
-                        <div class="control">
-                            <input class="input is-large" type="number" name="usrcode" placeholder="User Code"
-                                autofocus="">
-                        </div>
-                    </div>
-                    <button class="button is-block is-info is-large is-fullwidth">Submit</button>
-                </form>
+                <table class="table">
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Repetitions</th>
+                        <th>Duration</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Burpee</td>
+                        <td>20</td>
+                        <td>2:00</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jumping Back</td>
+                        <td>50</td>
+                        <td>1:00</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Jump Rope</td>
+                        <td>100</td>
+                        <td>2:00</td>
+                    </tr>
+                </table>
             </div>
         </div>
-
     </section>
-
 </body>
 
 </html>
