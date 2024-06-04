@@ -1,80 +1,46 @@
-<!DOCTYPE html>
-<html>
+{%extends "base.html"%}
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Flask Auth Example</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
-</head>
+{%block title%} Personal {%endblock%}
 
-<body>
-    <section class="hero is-primary is-fullheight">
+{%block body%} 
+<h1 class="title">
+    Welcome {{name}}
+</h1>
+<a class="button is-info is-large" href="{{ url_for('changeexerciseplan') }}">
+    Change Exercise Plan
+</a>
+<a class="button is-info is-large" href="{{ url_for('changediet') }}">
+    Change diet
+</a>
+<a class="button is-info is-large" href="{{ url_for('times') }}">
+    Appointments
+</a>
+<br><br>
+<h1 class="title">
+    Get User Information about Exercise Plan
+</h1>
 
-        <div class="hero-head">
-            <nav class="navbar">
-                <div class="container">
-                    <div id="navbarMenuHeroA" class="navbar-menu">
-                        <div class="navbar-end">
-                            <a href="{{ url_for('profile') }}" class="navbar-item">
-                                Profile
-                            </a>
-                            <a href="{{ url_for('logout') }}" class="navbar-item">
-                                Logout
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+<form method="POST" action="/exerciseplan">
+    <div class="field">
+        <div class="control">
+            <input class="input is-large" type="number" name="usrcode" placeholder="User Code"
+                autofocus="">
         </div>
-
-        <div class="hero-body">
-            <div class="container has-text-centered">
-                <h1 class="title">
-                    Welcome {{name}}
-                </h1>
-                <a class="button is-info is-large" href="{{ url_for('changeexerciseplan') }}">
-                    Change Exercise Plan
-                </a>
-                <a class="button is-info is-large" href="{{ url_for('changediet') }}">
-                    Change diet
-                </a>
-                <a class="button is-info is-large" href="{{ url_for('times') }}">
-                    Appointments
-                </a>
-                <br><br>
-                <h1 class="title">
-                    Get User Information about Exercise Plan
-                </h1>
-
-                <form method="POST" action="/exerciseplan">
-                    <div class="field">
-                        <div class="control">
-                            <input class="input is-large" type="number" name="usrcode" placeholder="User Code"
-                                autofocus="">
-                        </div>
-                    </div>
-                    <button class="button is-block is-info is-large is-fullwidth">Submit</button>
-                </form>
-                <br><br>
-                <h1 class="title">
-                    Get User Information about Diet
-                </h1>
-                <form method="POST" action="/diet">
-                    <div class="field">
-                        <div class="control">
-                            <input class="input is-large" type="number" name="usrcode" placeholder="User Code"
-                                autofocus="">
-                        </div>
-                    </div>
-                    <button class="button is-block is-info is-large is-fullwidth">Submit</button>
-                </form>
-            </div>
+    </div>
+    <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+</form>
+<br><br>
+<h1 class="title">
+    Get User Information about Diet
+</h1>
+<form method="POST" action="/diet">
+    <div class="field">
+        <div class="control">
+            <input class="input is-large" type="number" name="usrcode" placeholder="User Code"
+                autofocus="">
         </div>
+    </div>
+    <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+</form>
 
-    </section>
-
-</body>
-
-</html>
+{%endblock%}

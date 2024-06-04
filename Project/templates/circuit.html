@@ -1,85 +1,53 @@
-<!DOCTYPE html>
-<html>
+{%extends "base.html"%}
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Flask Auth Example</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
-</head>
+{%block title%} Circuit {%endblock%}
 
-<body>
-    <section class="hero is-primary is-fullheight">
+{%block body%} 
+<h1 class="title">
+    Exercise Plan : Felipe
+</h1>
+<h1 class="title">
+    Day : Monday
+</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Repetitions</th>
+            <th>Duration</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>1</th>
+            <td>
+                <a class="button is-info" href="{{ url_for('workout') }}">
+                    Aerobical
+                </a>
+            </td>
+            <td>
+                3
+            </td>
+            <td>
+                15:00
+            </td>
+        </tr>
+        <tr>
+            <th>2</th>
+            <td>
+                <a class="button is-info" href="{{ url_for('workout') }}">
+                    Leg
+                </a>
+            </td>
+            <td>
+                5
+            </td>
+            <td>
+                20:00
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-        <div class="hero-head">
-            <nav class="navbar">
-                <div class="container">
-                    <div id="navbarMenuHeroA" class="navbar-menu">
-                        <div class="navbar-end">
-                            <a href="{{ url_for('profile') }}" class="navbar-item">
-                                Profile
-                            </a>
-                            <a href="{{ url_for('logout') }}" class="navbar-item">
-                                Logout
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
-
-        <div class="hero-body">
-            <div class="container has-text-centered">
-                <h1 class="title">
-                    Exercise Plan : Felipe
-                </h1>
-                <h1 class="title">
-                    Day : Monday
-                </h1>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Repetitions</th>
-                            <th>Duration</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td>
-                                <a class="button is-info" href="{{ url_for('workout') }}">
-                                    Aerobical
-                                </a>
-                            </td>
-                            <td>
-                                3
-                            </td>
-                            <td>
-                                15:00
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>2</th>
-                            <td>
-                                <a class="button is-info" href="{{ url_for('workout') }}">
-                                    Leg
-                                </a>
-                            </td>
-                            <td>
-                                5
-                            </td>
-                            <td>
-                                20:00
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-</body>
-
-</html>
+{%endblock%}

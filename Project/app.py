@@ -1,7 +1,16 @@
 from flask import Flask
 from flask import render_template, redirect, url_for
+from flask import session
+
+from forms import loginForm
 
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = 'dfewfew123213rwdsgert34tgfd1234trgf'
+
+#Substituir pelo bd
+users = [{'id':1,'name':'Cladomiro', 'email': 'admin@admin.com', 'password': 'admin'},
+         {'id':2,'name':'Robervaldo', 'email': 'ademiro@gmail.com', 'password': 'admin'}] 
 
 
 @app.route("/")
@@ -9,14 +18,17 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
-
-
-@app.route("/login", methods=["POST"])
-def login_post():
-    return redirect(url_for("login"))
+    form = loginForm()
+    if(form.validate_on_submit()):
+        for user in users:
+            if(user['email']==form.email.data and user['password']==form.password.data):
+                session['user']=user['id']
+                return redirect(url_for("profile"))
+    
+        
+    return render_template("login.html", form=form)
 
 
 @app.route("/signup")
@@ -31,6 +43,8 @@ def signup_post():
 
 @app.route("/logout")
 def logout():
+    if "user" in session:
+        del session['user']
     return redirect(url_for("index"))
 
 
