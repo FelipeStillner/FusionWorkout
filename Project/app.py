@@ -1,16 +1,12 @@
 from flask import Flask
 from flask import render_template, redirect, url_for
 from flask import session
-
 from forms import loginForm
+import User
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = 'dfewfew123213rwdsgert34tgfd1234trgf'
-
-#Substituir pelo bd
-users = [{'id':1,'name':'Cladomiro', 'email': 'admin@admin.com', 'password': 'admin'},
-         {'id':2,'name':'Robervaldo', 'email': 'ademiro@gmail.com', 'password': 'admin'}] 
+app.config["SECRET_KEY"] = "dfewfew123213rwdsgert34tgfd1234trgf"
 
 
 @app.route("/")
@@ -21,51 +17,43 @@ def index():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = loginForm()
-    if(form.validate_on_submit()):
-        for user in users:
-            if(user['email']==form.email.data and user['password']==form.password.data):
-                session['user']=user['id']
-                return redirect(url_for("profile"))
-    
-        
+    if form.validate_on_submit():
+        validate = User.User.validate(form.email.data, form.password.data)
+        if validate[0]:
+            session["user"] = validate[1]
+            return redirect(url_for("profile"))
     return render_template("login.html", form=form)
 
 
-@app.route("/signup")
+@app.route("/signup", methods=["GET", "POST"])
 def signup():
-    return render_template("signup.html")
-
-
-@app.route("/signup", methods=["POST"])
-def signup_post():
-    return redirect(url_for("signup"))
+    form = loginForm()
+    if form.validate_on_submit():
+        validate = User.User.validate(form.email.data, form.password.data)
+        if validate[0]:
+            session["user"] = validate[1]
+            return redirect(url_for("profile"))
+    return render_template("login.html", form=form)
 
 
 @app.route("/logout")
 def logout():
     if "user" in session:
-        del session['user']
+        del session["user"]
     return redirect(url_for("index"))
 
 
 @app.route("/profile")
 def profile():
-    return render_template("client.html")
-
-
-@app.route("/client")
-def client():
-    return render_template("client.html")
-
-
-@app.route("/personal")
-def personal():
-    return render_template("personal.html")
-
-
-@app.route("/manager")
-def manager():
-    return render_template("manager.html")
+    user = User.User(session["user"])
+    if user.kind == "C":
+        return render_template("client.html")
+    elif user.kind == "P":
+        return render_template("personal.html")
+    elif user.kind == "M":
+        return render_template("manager.html")
+    print("ERROR")
+    return redirect(url_for("logout"))
 
 
 @app.route("/food")
