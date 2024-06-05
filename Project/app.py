@@ -2,7 +2,9 @@ from flask import Flask
 from flask import render_template, redirect, url_for
 from flask import session
 from forms import loginForm
-import User
+from User import User
+from Client import Client
+from Food import Food
 
 app = Flask(__name__)
 
@@ -18,7 +20,7 @@ def index():
 def login():
     form = loginForm()
     if form.validate_on_submit():
-        validate = User.User.validate(form.email.data, form.password.data)
+        validate = User.validate(form.email.data, form.password.data)
         if validate[0]:
             session["user"] = validate[1]
             return redirect(url_for("profile"))
@@ -28,12 +30,8 @@ def login():
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     form = loginForm()
-    if form.validate_on_submit():
-        validate = User.User.validate(form.email.data, form.password.data)
-        if validate[0]:
-            session["user"] = validate[1]
-            return redirect(url_for("profile"))
-    return render_template("login.html", form=form)
+    Client.new("p@p.com", "p", "p", 1, 1, True)
+    return render_template("signup.html", form=form)
 
 
 @app.route("/logout")
@@ -45,13 +43,13 @@ def logout():
 
 @app.route("/profile")
 def profile():
-    user = User.User(session["user"])
+    user = User(session["user"])
     if user.kind == "C":
-        return render_template("client.html")
+        return render_template("client.html", name = user.name)
     elif user.kind == "P":
-        return render_template("personal.html")
+        return render_template("personal.html", name = user.name)
     elif user.kind == "M":
-        return render_template("manager.html")
+        return render_template("manager.html", name = user.name)
     print("ERROR")
     return redirect(url_for("logout"))
 
@@ -63,6 +61,8 @@ def food():
 
 @app.route("/diet")
 def diet():
+    f = Food(1)
+    f.print()
     return render_template("diet.html")
 
 
