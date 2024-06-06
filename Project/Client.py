@@ -1,26 +1,26 @@
 import psycopg2
-import User
+from User import User
+from Diet import Diet
 
-class Client(User.User):
+class Client(User):
     def __init__(self, id) -> None:
         super().__init__(id)
         con = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="password", port=5432)
         cur = con.cursor()
         cur.execute('select * from "Client" where id = '+str(id)+'')
         info = cur.fetchone()
-        con.close()
         self.weight = info[1]
         self.height = info[2]
         self.sex = info[3]
+        self.diet = Diet(id)
+        con.close()
     def new(email, name, password, weight, height, female):
-        print("BBBB")
         con = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="password", port=5432)
         cur = con.cursor()
         cur.execute('INSERT INTO "User"(email, name, password, kind) VALUES (\''+email+'\', \''+name+'\', \''+password+'\', \'C\');')
         con.commit()
         con.close()
-        validate = User.User.validate(email, password)
-        print(validate[0])
+        validate = User.validate(email, password)
         if validate[0]:
             id = validate[1]
             sex = "M"

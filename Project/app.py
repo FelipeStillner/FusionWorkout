@@ -7,8 +7,9 @@ from Client import Client
 from Food import Food
 
 app = Flask(__name__)
-
 app.config["SECRET_KEY"] = "dfewfew123213rwdsgert34tgfd1234trgf"
+
+days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
 
 @app.route("/")
@@ -45,6 +46,7 @@ def logout():
 def profile():
     user = User(session["user"])
     if user.kind == "C":
+        session["client"] = session["user"]
         return render_template("client.html", name = user.name)
     elif user.kind == "P":
         return render_template("personal.html", name = user.name)
@@ -56,14 +58,19 @@ def profile():
 
 @app.route("/food")
 def food():
-    return render_template("food.html")
+    day = 3 # TODO
+    client = Client(session["client"])
+    foods = client.diet.foods[day]
+    data = []
+    for food in foods:
+        data.append((food.name, food.quantity, food.energy))
+    return render_template("food.html", data = data, day = days[day], name = client.name)
 
 
 @app.route("/diet")
 def diet():
-    f = Food(1)
-    f.print()
-    return render_template("diet.html")
+    client = Client(session["client"])
+    return render_template("diet.html", name = client.name)
 
 
 @app.route("/diet", methods=["POST"])

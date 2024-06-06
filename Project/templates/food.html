@@ -4,10 +4,10 @@
 
 {%block body%} 
 <h1 class="title">
-    Diet : Felipe
+    Diet : {{name}}
 </h1>
 <h1 class="title">
-    Day : Sunday
+    Day : {{day}}
 </h1>
 <table class="table">
     <tr>
@@ -15,16 +15,13 @@
         <th>Quantity (g)</th>
         <th>Calories (kcal)</th>
     </tr>
-    <tr>
-        <td>Arroz</td>
-        <td>1000</td>
-        <td>???????</td>
-    </tr>
-    <tr>
-        <td>Carne Vermelha</td>
-        <td>200</td>
-        <td>???????</td>
-    </tr>
+    {%for food in data%} 
+        <tr>
+            <td>{{food[0]}}</td>
+            <td>{{food[1]}}</td>
+            <td>{{food[2]}}</td>
+        </tr>
+    {%endfor%} 
 </table>
 
 {%endblock%}
