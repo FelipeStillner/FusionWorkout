@@ -4,13 +4,13 @@
 
 {%block body%} 
 <h1 class="title">
-    Exercise Plan : Felipe
+    Exercise Plan : {{name}}
 </h1>
 <h1 class="title">
-    Day : Monday
+    Day : {{day}}
 </h1>
 <h1 class="title">
-    Circuit : Aerobical
+    Circuit : {{circuit}}
 </h1>
 <table class="table">
     <tr>
@@ -19,24 +19,14 @@
         <th>Repetitions</th>
         <th>Duration</th>
     </tr>
-    <tr>
-        <td>1</td>
-        <td>Burpee</td>
-        <td>20</td>
-        <td>2:00</td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>Jumping Back</td>
-        <td>50</td>
-        <td>1:00</td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>Jump Rope</td>
-        <td>100</td>
-        <td>2:00</td>
-    </tr>
+    {%for workout in data%} 
+        <tr>
+            <td>{{workout[0]}}</td>
+            <td>{{workout[1]}}</td>
+            <td>{{workout[2]}}</td>
+            <td>{{workout[3]}}</td>
+        </tr>
+    {%endfor%} 
 </table>
 
 {%endblock%}

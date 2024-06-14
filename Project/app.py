@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import render_template, redirect, url_for
-from flask import session
+from flask import session, request
 from forms import loginForm
 from User import User
 from Client import Client
@@ -47,30 +47,30 @@ def profile():
     user = User(session["user"])
     if user.kind == "C":
         session["client"] = session["user"]
-        return render_template("client.html", name = user.name)
+        return render_template("client.html", name=user.name)
     elif user.kind == "P":
-        return render_template("personal.html", name = user.name)
+        return render_template("personal.html", name=user.name)
     elif user.kind == "M":
-        return render_template("manager.html", name = user.name)
+        return render_template("manager.html", name=user.name)
     print("ERROR")
     return redirect(url_for("logout"))
 
 
-@app.route("/food")
+@app.route("/food", methods=["POST"])
 def food():
-    day = 3 # TODO
+    day = int(request.args.get('day'))
     client = Client(session["client"])
     foods = client.diet.foods[day]
     data = []
     for food in foods:
         data.append((food.name, food.quantity, food.energy))
-    return render_template("food.html", data = data, day = days[day], name = client.name)
+    return render_template("food.html", data=data, day=days[day], name=client.name)
 
 
 @app.route("/diet")
 def diet():
     client = Client(session["client"])
-    return render_template("diet.html", name = client.name)
+    return render_template("diet.html", name=client.name)
 
 
 @app.route("/diet", methods=["POST"])
@@ -83,19 +83,38 @@ def changediet():
     return render_template("changediet.html")
 
 
-@app.route("/workout")
+@app.route("/workout", methods=["POST"])
 def workout():
-    return render_template("workout.html")
+    c_id = int(request.args.get('id'))
+    day = session['day']  # TODO
+    client = Client(session["client"])
+    circuits = client.exercise_plan.circuits[day]
+    data = []
+    for c in circuits:
+        if c.id == c_id:
+            circuit = c
+            break
+    for workout in circuit.workouts:
+        data.append((workout.id, workout.name, workout.repetitions, workout.duration))
+    return render_template("workout.html", data=data, day=days[day], name=client.name, circuit= circuit.name)
 
 
-@app.route("/circuit")
+@app.route("/circuit", methods=["POST"])
 def circuit():
-    return render_template("circuit.html")
+    day = int(request.args.get('day'))
+    session["day"] = day
+    client = Client(session["client"])
+    circuits = client.exercise_plan.circuits[day]
+    data = []
+    for circuit in circuits:
+        data.append((circuit.id, circuit.name, circuit.repetitions, 0))
+    return render_template("circuit.html", data=data, day=days[day], name=client.name)
 
 
 @app.route("/exerciseplan")
 def exerciseplan():
-    return render_template("exerciseplan.html")
+    client = Client(session["client"])
+    return render_template("exerciseplan.html", name=client.name)
 
 
 @app.route("/exerciseplan", methods=["POST"])

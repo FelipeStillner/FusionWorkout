@@ -1,6 +1,7 @@
 import psycopg2
 from User import User
 from Diet import Diet
+from ExercisePlan import ExercisePlan
 
 class Client(User):
     def __init__(self, id) -> None:
@@ -13,6 +14,7 @@ class Client(User):
         self.height = info[2]
         self.sex = info[3]
         self.diet = Diet(id)
+        self.exercise_plan = ExercisePlan(id)
         con.close()
     def new(email, name, password, weight, height, female):
         con = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="password", port=5432)
