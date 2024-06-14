@@ -4,7 +4,7 @@ from flask import session, request
 from forms import loginForm
 from User import User
 from Client import Client
-from Food import Food
+from Appointment import Appointment
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "dfewfew123213rwdsgert34tgfd1234trgf"
@@ -86,7 +86,7 @@ def changediet():
 @app.route("/workout", methods=["POST"])
 def workout():
     c_id = int(request.args.get('id'))
-    day = session['day']  # TODO
+    day = session['day']
     client = Client(session["client"])
     circuits = client.exercise_plan.circuits[day]
     data = []
@@ -129,6 +129,17 @@ def changeexerciseplan():
 
 @app.route("/schedule")
 def schedule():
+    user = User(session["user"])
+    if user.kind == "C":
+        data = []
+        schedules = Appointment.from_client(int(session["client"]))
+        for s in schedules:
+            data.append((s.clientid, s.personalid, s.date, s.time))
+        return render_template("schedule.html", name=user.name, data=data)
+    elif user.kind == "P":
+        return render_template("schedule.html", name=user.name)
+    elif user.kind == "M":
+        return render_template("schedule.html", name=user.name)
     return render_template("schedule.html")
 
 
