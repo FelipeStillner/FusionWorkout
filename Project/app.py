@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template, redirect, url_for
 from flask import session, request
-from forms import loginForm
+from forms import loginForm, signupForm
 from User import User
 from Client import Client
 from Appointment import Appointment
@@ -30,8 +30,12 @@ def login():
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
-    form = loginForm()
-    Client.new("p@p.com", "p", "p", 1, 1, True)
+    form = signupForm()
+    if form.validate_on_submit():
+        if User.notRegistered(form.email.data):
+            print("teste")
+            Client.new(form.email.data, form.name.data, form.password.data, form.weight.data, form.height.data, form.sex.data)
+            return redirect(url_for("login"))
     return render_template("signup.html", form=form)
 
 
@@ -132,6 +136,7 @@ def schedule():
     user = User(session["user"])
     if user.kind == "C":
         data = []
+        print(int(session["client"]))
         schedules = Appointment.from_client(int(session["client"]))
         for s in schedules:
             data.append((s.clientid, s.personalid, s.date, s.time))

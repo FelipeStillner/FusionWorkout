@@ -17,7 +17,7 @@ class Appointment:
     def from_client(user_id):
         con = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="password", port=5432)
         cur = con.cursor()
-        cur.execute('select id from "Appointment" where client_id = '+str(id)+'')
+        cur.execute(f'select id from "Appointment" where client_id = {user_id}')
         infos = cur.fetchall()
         con.close()
         result = []

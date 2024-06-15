@@ -22,6 +22,14 @@ class User:
             if password == info[3]: 
                 return True, info[0]
         return False, -1
+    def notRegistered(email):
+        con = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="password", port=5432)
+        cur = con.cursor()
+        cur.execute('select * from "User" where email = \''+email+'\'')
+        info = cur.fetchone()
+        con.close()
+        if (info is None):
+            return True
     def print(self):
         print("id: "+str(self.id)+", email: "+self.email+", name: "+self.name+", password: "+self.password+", kind: "+self.kind)
         
