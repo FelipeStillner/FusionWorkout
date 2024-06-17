@@ -17,5 +17,4 @@ class ExercisePlan:
         for day in self.circuits:
             for c in day:
                 c.print()
-        
 

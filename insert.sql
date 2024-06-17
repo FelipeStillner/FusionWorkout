@@ -42,3 +42,8 @@ INSERT INTO public."Workout"(
 	(6, 2, 'c2-w6', 7, '00:08:00'),
 	(7, 2, 'c2-w7', 8, '00:09:00'),
 	(8, 2, 'c2-w8', 9, '00:10:00');
+
+INSERT INTO public."Appointment"(
+	id, client_id, date, personal_id, "time")
+	VALUES (1, NULL, '01-01-2024', 11, '11:35'),
+	(2, 10, '01-01-2024', 11, '11:40');

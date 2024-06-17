@@ -37,5 +37,17 @@ class Client(User):
         return False
     def print(self):
         print("id: "+str(self.id)+", email: "+self.email+", name: "+self.name+", password: "+self.password+", kind: "+self.kind+", weight: "+self.weight+", height: "+self.height+", sex: "+self.sex)
+    def set_appointment(self, app_id):
+        con = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="password", port=5432)
+        cur = con.cursor()
+        cur.execute('UPDATE public."Appointment" SET client_id='+str(self.id)+' WHERE id='+str(app_id)+';')
+        con.commit()
+        con.close()
+    def delete(id):
+        con = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="password", port=5432)
+        cur = con.cursor()
+        cur.execute('DELETE FROM public."User" CASCADE WHERE id = '+str(id)+';')
+        con.commit()
+        con.close()
         
 

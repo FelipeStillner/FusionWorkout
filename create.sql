@@ -69,7 +69,7 @@ ALTER TABLE IF EXISTS public."Personal"
 CREATE TABLE IF NOT EXISTS public."Appointment"
 (
     id integer NOT NULL,
-    client_id integer NOT NULL,
+    client_id integer,
     date date NOT NULL,
     personal_id integer,
     "time" time with time zone NOT NULL,

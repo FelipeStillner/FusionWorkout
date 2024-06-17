@@ -5,6 +5,9 @@ from forms import loginForm, signupForm
 from User import User
 from Client import Client
 from Appointment import Appointment
+from Food import Food
+from Circuit import Circuit
+from Workout import Workout
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "dfewfew123213rwdsgert34tgfd1234trgf"
@@ -79,11 +82,18 @@ def diet():
 
 @app.route("/diet", methods=["POST"])
 def diet_post():
+    # TODO: FORM
     return redirect(url_for("diet"))
 
 
 @app.route("/changediet")
-def changediet():
+def changediet(): 
+    return render_template("changediet.html")
+
+@app.route("/changediet", methods=["POST"])
+def changediet_post():
+    Food.add(1, 0, "acad", 1, 1) # TODO: FORM
+    Food.remove(1) # TODO: FORM
     return render_template("changediet.html")
 
 
@@ -123,6 +133,7 @@ def exerciseplan():
 
 @app.route("/exerciseplan", methods=["POST"])
 def exerciseplan_post():
+    # TODO: FORM
     return redirect(url_for("exerciseplan"))
 
 
@@ -130,21 +141,23 @@ def exerciseplan_post():
 def changeexerciseplan():
     return render_template("changeexerciseplan.html")
 
+@app.route("/changeexerciseplan", methods=["POST"])
+def changeexerciseplan_post():
+    Circuit.add(1, 0, "csdcs", 21) # TODO: FORM
+    Circuit.remove(1) # TODO: FORM
+    Workout.add(0, "vfsvsfv", 1, "3:00:00") # TODO: FORM
+    Workout.remove(1) # TODO: FORM
+    return render_template("changeexerciseplan.html")
 
 @app.route("/schedule")
 def schedule():
-    user = User(session["user"])
-    if user.kind == "C":
-        data = []
-        print(int(session["client"]))
-        schedules = Appointment.from_client(int(session["client"]))
-        for s in schedules:
-            data.append((s.clientid, s.personalid, s.date, s.time))
-        return render_template("schedule.html", name=user.name, data=data)
-    elif user.kind == "P":
-        return render_template("schedule.html", name=user.name)
-    elif user.kind == "M":
-        return render_template("schedule.html", name=user.name)
+    return render_template("schedule.html")
+
+
+@app.route("/schedule", methods=["POST"])
+def schedule_post():
+    client = Client(session["client"])
+    client.set_appointment(1) # TODO: FORM
     return render_template("schedule.html")
 
 
@@ -153,8 +166,33 @@ def manageappointment():
     return render_template("manageappointment.html")
 
 
+@app.route("/manageappointment", methods=["POST"])
+def manageappointment_post():
+    Appointment.add("01-01-2024", 2, "12:00:00") # TODO: FORM
+    return render_template("manageappointment.html")
+
+
 @app.route("/times")
 def times():
+    user = User(session["user"])
+    if user.kind == "C":
+        data = []
+        schedules = Appointment.from_client(int(session["client"]))
+        for s in schedules:
+            data.append((s.clientid, s.personalid, s.date, s.time))
+        return render_template("times.html", name=user.name, data=data)
+    elif user.kind == "P":
+        data = []
+        schedules = Appointment.from_personal(int(session["user"]))
+        for s in schedules:
+            data.append((s.clientid, s.personalid, s.date, s.time))
+        return render_template("times.html", name=user.name, data=data)
+    elif user.kind == "M":
+        data = []
+        schedules = Appointment.all()
+        for s in schedules:
+            data.append((s.clientid, s.personalid, s.date, s.time))
+        return render_template("times.html", name=user.name, data=data)
     return render_template("times.html")
 
 
@@ -165,4 +203,5 @@ def deleteregister():
 
 @app.route("/deleteregister", methods=["POST"])
 def deleteregister_post():
+    Client.delete(1) # TODO: FORM
     return redirect(url_for("deleteregister"))
