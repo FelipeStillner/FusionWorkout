@@ -2,57 +2,55 @@
 
 {%block title%} "Change Diet" {%endblock%}
 
-{%block body%} 
+{%block body%}
 <div class="column is-4 is-offset-4">
     <h3 class="title">Change Diet</h3>
     <br>
     <h3 class="title">Add Food</h3>
     <div class="box">
         <form method="POST" action="/changediet">
+
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="number" name="clientid" placeholder="Client Id"
-                        autofocus="">
+                    {{addFoodForm.clientid(class="input is-large", placeholder="Client Id", autofocus="")}}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="number" name="foodday" placeholder="Food day"
-                        autofocus="">
+                    {{addFoodForm.day(class="input is-large", placeholder="Food Day")}}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="foodname" placeholder="Food Name"
-                        autofocus="">
+                    {{addFoodForm.name(class="input is-large", placeholder="Food Name")}}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="number" name="foodquantity"
-                        placeholder="Food Quantity" autofocus="">
+                    {{addFoodForm.quantity(class="input is-large", placeholder="Food Quantity (g)")}}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="number" name="foodcalories"
-                        placeholder="Food Calories" autofocus="">
+                    {{addFoodForm.calories(class="input is-large", placeholder="Food calories (kcal)")}}
                 </div>
             </div>
-            <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+            {{addFoodForm.csrf_token}}
+            {{addFoodForm.submit(class="button is-block is-info is-large is-fullwidth")}}
         </form>
     </div>
     <br>
     <h3 class="title">Remove Food</h3>
     <div class="box">
         <form method="POST" action="/changediet">
+
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="number" name="foodId" placeholder="Food Id"
-                        autofocus="">
+                    {{removeFoodForm.id(class="input is-large", placeholder="Food Id", autofocus="")}}
                 </div>
             </div>
-            <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+            {{removeFoodForm.csrf_token}}
+            {{removeFoodForm.submit(class="button is-block is-info is-large is-fullwidth")}}
         </form>
     </div>
 </div>

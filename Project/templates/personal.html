@@ -20,27 +20,27 @@
     Get User Information about Exercise Plan
 </h1>
 
-<form method="POST" action="/exerciseplan">
+<form method="POST" action="/profile">
     <div class="field">
         <div class="control">
-            <input class="input is-large" type="number" name="usrcode" placeholder="User Code"
-                autofocus="">
+            {{exerForm.idExer(class="input is-large", placeholder="User Code", autofocus="")}}
         </div>
     </div>
-    <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+    {{exerForm.csrf_token}}
+    {{exerForm.submitExer(class="button is-block is-info is-large is-fullwidth")}}
 </form>
 <br><br>
 <h1 class="title">
     Get User Information about Diet
 </h1>
-<form method="POST" action="/diet">
+<form method="POST" action="/profile">
     <div class="field">
         <div class="control">
-            <input class="input is-large" type="number" name="usrcode" placeholder="User Code"
-                autofocus="">
+            {{dietForm.idDiet(class="input is-large", placeholder="User Code", autofocus="")}}
         </div>
     </div>
-    <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+    {{dietForm.csrf_token}}
+    {{dietForm.submitDiet(class="button is-block is-info is-large is-fullwidth")}}
 </form>
 
 {%endblock%}

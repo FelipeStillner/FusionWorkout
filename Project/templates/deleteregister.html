@@ -9,11 +9,11 @@
         <form method="POST" action="/deleteregister">
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="usercode"
-                        placeholder="Code of the User to Delete" autofocus="">
+                    {{form.id(class="input is-large", placeholder="Code of the User to Delete", autofocus="")}}
                 </div>
             </div>
-            <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+            {{form.csrf_token}}
+            {{form.submit(class="button is-block is-info is-large is-fullwidth")}}
         </form>
     </div>
 </div>

@@ -1,32 +1,29 @@
-
 {%extends "base.html"%}
 
 {%block title%} Manage Appointments {%endblock%}
 
-{%block body%} 
+{%block body%}
 <div class="column is-4 is-offset-4">
     <h3 class="title">Manage appointment</h3>
     <div class="box">
         <form method="POST" action="/manageappointment">
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="number" name="personalid"
-                        placeholder="Personal Id" autofocus="">
+                    {{form.personalid(class="input is-large", placeholder="Personal Id", autofocus="")}}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="time" name="time"
-                        placeholder="Time" autofocus="">
+                    {{form.time(class="input is-large", placeholder="Time", autofocus="")}}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="date" name="date"
-                        placeholder="Date" autofocus="">
+                    {{form.date(class="input is-large", placeholder="Date", autofocus="")}}
                 </div>
             </div>
-            <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+            {{form.csrf_token}}
+            {{form.submit(class="button is-block is-info is-large is-fullwidth")}}
         </form>
     </div>
 </div>

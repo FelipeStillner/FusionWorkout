@@ -11,29 +11,26 @@
         <form method="POST" action="/changeexerciseplan">
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="number" name="circuitid"
-                        placeholder="Circuit Id" autofocus="">
+                    {{addWForm.aWcircuitid(class="input is-large", placeholder="Circuit Id", autofocus="")}}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="workoutname"
-                        placeholder="Workout Name" autofocus="">
+                    {{addWForm.aWname(class="input is-large", placeholder="Workout Name", autofocus="")}}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="number" name="repetitions"
-                        placeholder="Workout Repetitions" autofocus="">
+                    {{addWForm.aWrepetitions(class="input is-large", placeholder="Repetitions", autofocus="")}}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="number" name="duration"
-                        placeholder="Workout Duration" autofocus="">
+                    {{addWForm.aWduration(class="input is-large", placeholder="Duration", autofocus="")}}
                 </div>
             </div>
-            <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+            {{addWForm.csrf_token}}
+            {{addWForm.aWsubmit(class="button is-block is-info is-large is-fullwidth")}}
         </form>
     </div>
     <h3 class="title">Remove Workout</h3>
@@ -41,11 +38,11 @@
         <form method="POST" action="/changeexerciseplan">
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="number" name="workoutid"
-                        placeholder="Workout Id" autofocus="">
+                    {{removeWForm.rWid(class="input is-large", placeholder="Workout Id", autofocus="")}}
                 </div>
             </div>
-            <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+            {{removeWForm.csrf_token}}
+            {{removeWForm.rWsubmit(class="button is-block is-info is-large is-fullwidth")}}
         </form>
     </div>
     <br>
@@ -54,29 +51,26 @@
         <form method="POST" action="/changeexerciseplan">
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="number" name="clientid" placeholder="Client Id"
-                        autofocus="">
+                    {{addCForm.aCclientid(class="input is-large", placeholder="Client Id", autofocus="")}}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="number" name="circuitday"
-                        placeholder="Circuit Day" autofocus="">
+                    {{addCForm.aCday(class="input is-large", placeholder="Day", autofocus="")}}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="circuitname"
-                        placeholder="Circuit Name" autofocus="">
+                    {{addCForm.aCname(class="input is-large", placeholder="Name", autofocus="")}}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="number" name="repetitions"
-                        placeholder="Circuit Repetitions" autofocus="">
+                    {{addCForm.aCrepetitions(class="input is-large", placeholder="Repetitions", autofocus="")}}
                 </div>
             </div>
-            <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+            {{addCForm.csrf_token}}
+            {{addCForm.aCsubmit(class="button is-block is-info is-large is-fullwidth")}}
         </form>
     </div>
     <h3 class="title">Remove Circuit</h3>
@@ -84,11 +78,11 @@
         <form method="POST" action="/changeexerciseplan">
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="number" name="circuitid"
-                        placeholder="Circuit Id" autofocus="">
+                    {{removeCForm.rCid(class="input is-large", placeholder="Circuit Id", autofocus="")}}
                 </div>
             </div>
-            <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+            {{removeCForm.csrf_token}}
+            {{removeCForm.rCsubmit(class="button is-block is-info is-large is-fullwidth")}}
         </form>
     </div>
 </div>

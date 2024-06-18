@@ -9,11 +9,11 @@
         <form method="POST" action="/schedule">
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="number" name="appointment id"
-                        placeholder="Appointment Id" autofocus="">
+                    {{form.id(class="input is-large", placeholder="Appointment Id", autofocus="")}}
                 </div>
             </div>
-            <button class="button is-block is-info is-large is-fullwidth">Submit</button>
+            {{form.csrf_token}}
+            {{form.submit(class="button is-block is-info is-large is-fullwidth")}}
         </form>
     </div>
 </div>

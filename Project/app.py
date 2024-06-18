@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template, redirect, url_for
 from flask import session, request
-from forms import loginForm, signupForm
+from forms import *
 from User import User
 from Client import Client
 from Appointment import Appointment
@@ -37,7 +37,14 @@ def signup():
     if form.validate_on_submit():
         if User.notRegistered(form.email.data):
             print("teste")
-            Client.new(form.email.data, form.name.data, form.password.data, form.weight.data, form.height.data, form.sex.data)
+            Client.new(
+                form.email.data,
+                form.name.data,
+                form.password.data,
+                form.weight.data,
+                form.height.data,
+                form.sex.data,
+            )
             return redirect(url_for("login"))
     return render_template("signup.html", form=form)
 
@@ -49,28 +56,52 @@ def logout():
     return redirect(url_for("index"))
 
 
-@app.route("/profile")
+@app.route("/profile", methods=["POST", "GET"])
 def profile():
     user = User(session["user"])
     if user.kind == "C":
         session["client"] = session["user"]
         return render_template("client.html", name=user.name)
     elif user.kind == "P":
-        return render_template("personal.html", name=user.name)
+        exerForm = viewExerciseForm()
+        if exerForm.validate_on_submit():
+            session["client"] = exerForm.idExer.data
+            client = Client(session["client"])
+            return render_template("exerciseplan.html", name=client.name)
+        dietForm = viewDietForm()
+        if dietForm.validate_on_submit():
+            session["client"] = dietForm.idDiet.data
+            client = Client(session["client"])
+            return render_template("diet.html", name=client.name)
+        return render_template(
+            "personal.html", name=user.name, exerForm=exerForm, dietForm=dietForm
+        )
     elif user.kind == "M":
-        return render_template("manager.html", name=user.name)
+        exerForm = viewExerciseForm()
+        if exerForm.validate_on_submit():
+            session["client"] = exerForm.idExer.data
+            client = Client(session["client"])
+            return render_template("exerciseplan.html", name=client.name)
+        dietForm = viewDietForm()
+        if dietForm.validate_on_submit():
+            session["client"] = dietForm.idDiet.data
+            client = Client(session["client"])
+            return render_template("diet.html", name=client.name)
+        return render_template(
+            "manager.html", name=user.name, exerForm=exerForm, dietForm=dietForm
+        )
     print("ERROR")
     return redirect(url_for("logout"))
 
 
 @app.route("/food", methods=["POST"])
 def food():
-    day = int(request.args.get('day'))
+    day = int(request.args.get("day"))
     client = Client(session["client"])
     foods = client.diet.foods[day]
     data = []
     for food in foods:
-        data.append((food.name, food.quantity, food.energy))
+        data.append((food.id, food.name, food.quantity, food.energy))
     return render_template("food.html", data=data, day=days[day], name=client.name)
 
 
@@ -80,27 +111,31 @@ def diet():
     return render_template("diet.html", name=client.name)
 
 
-@app.route("/diet", methods=["POST"])
-def diet_post():
-    # TODO: FORM
-    return redirect(url_for("diet"))
-
-
-@app.route("/changediet")
-def changediet(): 
-    return render_template("changediet.html")
-
-@app.route("/changediet", methods=["POST"])
-def changediet_post():
-    Food.add(1, 0, "acad", 1, 1) # TODO: FORM
-    Food.remove(1) # TODO: FORM
-    return render_template("changediet.html")
+@app.route("/changediet", methods=["POST", "GET"])
+def changediet():
+    addForm = addFoodForm()
+    if addForm.validate_on_submit():
+        Food.add(
+            addForm.clientid.data,
+            addForm.day.data,
+            addForm.name.data,
+            addForm.quantity.data,
+            addForm.calories.data,
+        )
+        return redirect(url_for("profile"))
+    removeForm = removeFoodForm()
+    if removeForm.validate_on_submit():
+        Food.remove(removeForm.id.data)
+        return redirect(url_for("profile"))
+    return render_template(
+        "changediet.html", addFoodForm=addForm, removeFoodForm=removeForm
+    )
 
 
 @app.route("/workout", methods=["POST"])
 def workout():
-    c_id = int(request.args.get('id'))
-    day = session['day']
+    c_id = int(request.args.get("id"))
+    day = session["day"]
     client = Client(session["client"])
     circuits = client.exercise_plan.circuits[day]
     data = []
@@ -110,12 +145,14 @@ def workout():
             break
     for workout in circuit.workouts:
         data.append((workout.id, workout.name, workout.repetitions, workout.duration))
-    return render_template("workout.html", data=data, day=days[day], name=client.name, circuit= circuit.name)
+    return render_template(
+        "workout.html", data=data, day=days[day], name=client.name, circuit=circuit.name
+    )
 
 
 @app.route("/circuit", methods=["POST"])
 def circuit():
-    day = int(request.args.get('day'))
+    day = int(request.args.get("day"))
     session["day"] = day
     client = Client(session["client"])
     circuits = client.exercise_plan.circuits[day]
@@ -133,43 +170,64 @@ def exerciseplan():
 
 @app.route("/exerciseplan", methods=["POST"])
 def exerciseplan_post():
-    # TODO: FORM
+
     return redirect(url_for("exerciseplan"))
 
 
-@app.route("/changeexerciseplan")
+@app.route("/changeexerciseplan", methods=["POST", "GET"])
 def changeexerciseplan():
-    return render_template("changeexerciseplan.html")
+    addCForm = addCircuitForm()
+    if addCForm.validate_on_submit():
+        Circuit.add(
+            addCForm.aCclientid.data,
+            addCForm.aCday.data,
+            addCForm.aCname.data,
+            addCForm.aCrepetitions.data,
+        )
+        return redirect(url_for("profile"))
+    removeCForm = removeCircuitForm()
+    if removeCForm.validate_on_submit():
+        Circuit.remove(removeCForm.rCid.data)
+        return redirect(url_for("profile"))
+    addWForm = addWorkoutForm()
+    if addWForm.validate_on_submit():
 
-@app.route("/changeexerciseplan", methods=["POST"])
-def changeexerciseplan_post():
-    Circuit.add(1, 0, "csdcs", 21) # TODO: FORM
-    Circuit.remove(1) # TODO: FORM
-    Workout.add(0, "vfsvsfv", 1, "3:00:00") # TODO: FORM
-    Workout.remove(1) # TODO: FORM
-    return render_template("changeexerciseplan.html")
+        Workout.add(
+            addWForm.aWcircuitid.data,
+            addWForm.aWname.data,
+            addWForm.aWrepetitions.data,
+            "0:00:" + str(addWForm.aWduration.data),
+        )
+        return redirect(url_for("profile"))
+    removeWForm = removeWorkoutForm()
+    if removeWForm.validate_on_submit():
+        Workout.remove(removeWForm.rWid.data)
+        return redirect(url_for("profile"))
+    return render_template(
+        "changeexerciseplan.html",
+        addCForm=addCForm,
+        removeCForm=removeCForm,
+        addWForm=addWForm,
+        removeWForm=removeWForm,
+    )
 
-@app.route("/schedule")
+
+@app.route("/schedule", methods=["POST", "GET"])
 def schedule():
-    return render_template("schedule.html")
+    form = scheduleForm()
+    if form.validate_on_submit():
+        client = Client(session["client"])
+        client.set_appointment(form.id.data)
+        return redirect(url_for("profile"))
+    return render_template("schedule.html", form=form)
 
 
-@app.route("/schedule", methods=["POST"])
-def schedule_post():
-    client = Client(session["client"])
-    client.set_appointment(1) # TODO: FORM
-    return render_template("schedule.html")
-
-
-@app.route("/manageappointment")
+@app.route("/manageappointment", methods=["POST", "GET"])
 def manageappointment():
-    return render_template("manageappointment.html")
-
-
-@app.route("/manageappointment", methods=["POST"])
-def manageappointment_post():
-    Appointment.add("01-01-2024", 2, "12:00:00") # TODO: FORM
-    return render_template("manageappointment.html")
+    form = manageAppointmentForm()
+    if form.validate_on_submit():
+        Appointment.add(form.date.data, form.personalid.data, form.time.data)  # TODO: FORM
+    return render_template("manageappointment.html", form = form)
 
 
 @app.route("/times")
@@ -179,29 +237,27 @@ def times():
         data = []
         schedules = Appointment.from_client(int(session["client"]))
         for s in schedules:
-            data.append((s.clientid, s.personalid, s.date, s.time))
+            data.append((s.id, s.clientid, s.personalid, s.date, s.time))
         return render_template("times.html", name=user.name, data=data)
     elif user.kind == "P":
         data = []
         schedules = Appointment.from_personal(int(session["user"]))
         for s in schedules:
-            data.append((s.clientid, s.personalid, s.date, s.time))
+            data.append((s.id, s.clientid, s.personalid, s.date, s.time))
         return render_template("times.html", name=user.name, data=data)
     elif user.kind == "M":
         data = []
         schedules = Appointment.all()
         for s in schedules:
-            data.append((s.clientid, s.personalid, s.date, s.time))
+            data.append((s.id, s.clientid, s.personalid, s.date, s.time))
         return render_template("times.html", name=user.name, data=data)
     return render_template("times.html")
 
 
-@app.route("/deleteregister")
+@app.route("/deleteregister", methods=["POST", "GET"])
 def deleteregister():
-    return render_template("deleteregister.html")
-
-
-@app.route("/deleteregister", methods=["POST"])
-def deleteregister_post():
-    Client.delete(1) # TODO: FORM
-    return redirect(url_for("deleteregister"))
+    form = deleteRegisterForm()
+    if form.validate_on_submit():
+        Client.delete(form.id.data)
+        return redirect(url_for("profile"))
+    return render_template("deleteregister.html", form=form)
